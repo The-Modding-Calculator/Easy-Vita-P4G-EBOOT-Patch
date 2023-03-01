@@ -1,11 +1,14 @@
 :: Clear old elfs and eboot
-rm .\tempElfFiles\base_eboot.elf
-rm .\tempElfFiles\modded_eboot.elf
-rm .\modded_eboot.bin
+del .\tempElfFiles\base_eboot.elf
+del .\tempElfFiles\modded_eboot.elf
+del .\modded_eboot.bin
+
+::Make tempEldFiles if it dose not already exist
+if not exist "tempElfFiles" mkdir tempElfFiles
 
 :: Exract elf from decrypted eboot
 .\PSVita-RE-Tools\vita-unmake-fself.exe .\eboot.bin
-mv .\eboot.bin.elf .\tempElfFiles\base_eboot.elf
+move .\eboot.bin.elf .\tempElfFiles\base_eboot.elf
 
 :: Patch the elf (US)
 ".\RPCS3PatchEboot - TGE\RPCS3PatchEboot.exe" ".\tempElfFiles\base_eboot.elf" ".\Patches - Lipsum\PCSE00120.yml" ".\tempElfFiles\modded_eboot.elf" -FilterByName p4g_ModSupport
